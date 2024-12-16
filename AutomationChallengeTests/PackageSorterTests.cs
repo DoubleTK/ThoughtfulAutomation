@@ -24,7 +24,7 @@ public class PackageSorterTests
         [InlineData(1, 0, 1, 1)]
         [InlineData(1, 1, 0, 1)]
         [InlineData(1, 1, 1, 0)]
-        public void NonPositiveInputsShouldThrow(int width, int height, int length, int mass)
+        public void ThrowOnNonPositiveInput(int width, int height, int length, int mass)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => PackageSorter.Sort(width, height, length, mass));
         }
