@@ -4,7 +4,7 @@ namespace AutomationChallenge;
 
 public class PackageSorter
 {
-    public string Sort(int width, int height, int length, int mass)
+    public static string Sort(int width, int height, int length, int mass)
     {
         Guard.IsGreaterThan(width, 0);
         Guard.IsGreaterThan(height, 0);

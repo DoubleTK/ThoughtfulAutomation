@@ -9,12 +9,12 @@ public class PackageSorterTests
         [Fact]
         public void SortStandardPackageNormally()
         {
-            var sorter = new PackageSorter();
-            int width = 5;
-            int height = 10;
-            int length = 20;
-            int mass = 10;
-            string result = sorter.Sort(width, height, length, mass);
+            const int width = 5;
+            const int height = 10;
+            const int length = 20;
+            const int mass = 10;
+            
+            string result = PackageSorter.Sort(width, height, length, mass);
             
             Assert.Equal(PackageConstants.Standard, result);
         }
@@ -26,9 +26,7 @@ public class PackageSorterTests
         [InlineData(1, 1, 1, 0)]
         public void NonPositiveInputsShouldThrow(int width, int height, int length, int mass)
         {
-            var sorter = new PackageSorter();
-            
-            Assert.Throws<ArgumentOutOfRangeException>(() => sorter.Sort(width, height, length, mass));
+            Assert.Throws<ArgumentOutOfRangeException>(() => PackageSorter.Sort(width, height, length, mass));
         }
 
         [Theory]
@@ -39,8 +37,7 @@ public class PackageSorterTests
         [InlineData(10, 10, 10, 20)] // package too heavy
         public void SortBulkyItemsAsSpecial(int width, int height, int length, int mass)
         {
-            var sorter = new PackageSorter();
-            string result = sorter.Sort(width, height, length, mass);
+            string result = PackageSorter.Sort(width, height, length, mass);
             
             Assert.Equal(PackageConstants.Special, result);
         }
@@ -48,8 +45,7 @@ public class PackageSorterTests
         [Fact]
         public void RejectHeavyBulkyItems()
         {
-            var sorter = new PackageSorter();
-            string result = sorter.Sort(100, 100, 100, 100);
+            string result = PackageSorter.Sort(100, 100, 100, 100);
             
             Assert.Equal(PackageConstants.Rejected, result);
         }
