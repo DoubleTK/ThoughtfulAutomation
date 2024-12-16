@@ -30,5 +30,28 @@ public class PackageSorterTests
             
             Assert.Throws<ArgumentOutOfRangeException>(() => sorter.Sort(width, height, length, mass));
         }
+
+        [Theory]
+        [InlineData(100, 100, 100, 10)] // Too much volume
+        [InlineData(150, 10, 10, 10)] // width too long
+        [InlineData(10, 150, 10, 10)] // height too long
+        [InlineData(10, 10, 150, 10)] // length too long
+        [InlineData(10, 10, 10, 20)] // package too heavy
+        public void SortBulkyItemsAsSpecial(int width, int height, int length, int mass)
+        {
+            var sorter = new PackageSorter();
+            string result = sorter.Sort(width, height, length, mass);
+            
+            Assert.Equal(PackageConstants.Special, result);
+        }
+
+        [Fact]
+        public void RejectHeavyBulkyItems()
+        {
+            var sorter = new PackageSorter();
+            string result = sorter.Sort(100, 100, 100, 100);
+            
+            Assert.Equal(PackageConstants.Rejected, result);
+        }
     }
 }
